@@ -50,7 +50,7 @@ True # Boolean
 {'Name': 'Muhammed', 'Country': 'Nigeria'} # Dictionary
 
 
-"""2 --> Euclidian Distance"""
+"""2 --> Euclidean Distance"""
 
 square1 = pow((10-2), 2)
 square2 = pow((8-3), 2)
