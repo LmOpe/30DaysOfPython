@@ -78,5 +78,5 @@ sorted_countries = sorted(data, key=lambda x: x['population'], reverse=True)
 
 top_10 = sorted_countries[:10]
 
-for i, country in enumerate(top_10, start=1)
+for i, country in enumerate(top_10, start=1):
     print(f"{i}. {country['name']} - Population: {country['population']}")
