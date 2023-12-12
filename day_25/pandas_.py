@@ -18,4 +18,4 @@ print(f"Rows: {rows} and Columns: {columns}")
 print(df[['python' in title for title in list(df['title'])]])
 
 
-print(df[['javascript' in title for title in list(df['title'])]])
+print(df[['JavaScript' in title for title in list(df['title'])]])
