@@ -56,6 +56,7 @@ def post():
         content = request.form['content']
         cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', '',content)
         words = word_tokenize(cleaned_text)
+        chars = ''.join(words)
         counted_words = Counter(words)
         tuple_words = [(key, value) for key, value in counted_words.items()]
         data = {
@@ -63,7 +64,7 @@ def post():
             'counted_words': json.dumps(tuple_words),
             'most_frequent_word': counted_words.most_common(1)[0][0],
             'num_of_words': len(words),
-            'num_of_char': len(content)
+            'num_of_char': len(chars)
         }
         return redirect(url_for('result', **data))
 
