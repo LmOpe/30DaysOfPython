@@ -7,12 +7,17 @@
         most frequent words in the text. Check it out by click text analyzer at the
         menu. You need the following technologies to build this web application:
     </p>
-    <ul class="tech-lists">
+    <ol class="tech-lists">
         {% for tech in techs %}
-        <li class="tech">{{tech}}</li>
+        <li>{{tech}}</li>
+        <ul>
+            {% for item in techs[tech] %}
+            <li class="tech">{{ item }}</li>
+            {% endfor %}
+        </ul>
 
         {% endfor %}
-    </ul>
+    </ol>
 </div>
 
 {% endblock %}

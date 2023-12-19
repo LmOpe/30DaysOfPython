@@ -42,7 +42,7 @@ def calculate_lexical_density(words):
 
 @app.route('/') # this decorator create the home route
 def home ():
-    techs = ['HTML', 'CSS', 'Flask', 'Python']
+    techs = {"Frontend": ['HTML', 'CSS', 'JavaScript'], "Backend": ['Flask', 'Python', 'MongoDB']}
     name = '30 Days Of Python Programming'
     return render_template('home.html', techs=techs, name = name, title = 'Home')
 
