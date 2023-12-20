@@ -10,7 +10,7 @@
     <h4>{{ student.city }}</h4>
     <h4>{{ student.skills|join(', ') }}</h4>
     <p>{{ student.bio }}</p>
-    <small><i class="far fa-clock"></i>Joined on {{ student.created_at }}</small>
+    <small><i class="far fa-clock"></i>Joined on {{ student.created_at | strftime('%Y-%m-%d %I:%M %p') }}</small>
 
     <div class="controlls">
         <a class="btn btn-primary" href="{{ url_for('update_student', id=student['_id']) }}">Edit</a>

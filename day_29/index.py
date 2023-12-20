@@ -27,6 +27,12 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 nltk.data.path.append('./nltk_data')
 
 
+def custom_strftime(value, format='%Y-%m-%d %I:%M %p'):
+    return value.strftime(format)
+
+# Adding the custom filter to Flask app
+app.jinja_env.filters['strftime'] = custom_strftime
+
 def calculate_lexical_density(words):
     stop_words = set(stopwords.words('english'))
     filtered_words = [word for word in words if word.isalpha() and word not in stop_words]
@@ -81,7 +87,7 @@ def post():
 
 @app.route('/api/v1.0/students', methods = ['GET'])
 def students ():
-    return Response(json.dumps(list(db.students.find())), mimetype='application/json')
+    return Response(dumps(db.students.find()), mimetype='application/json')
 
 @app.route('/students/add', methods = ['POST', 'GET'])
 def create_student ():
@@ -108,11 +114,10 @@ def create_student ():
         db.students.insert_one(student)
         return redirect(url_for('list_students'))
 
-@app.route('/api/v1.0/students/<id>', methods = ['PUT', 'GET']) # this decorator create the home route
+@app.route('/api/v1.0/students/<id>', methods = ['POST', 'PUT', 'GET']) # this decorator create the home route
 def update_student (id):
     if request.method == 'GET':
         student = db.students.find({'_id':ObjectId(id)})
-        print(student)
         return render_template('/students/update.html', student=student)
     if request.method =='PUT':
         query = {"_id":ObjectId(id)}
@@ -137,11 +142,9 @@ def update_student (id):
         # return Response(dumps({"result":"a new student has been created"}), mimetype='application/json')
         return redirect(url_for('list_students'))
 
-@app.route('/api/v1.0/students/<id>', methods = ['DELETE'])
-def delete_student (id):
-    db.students.delete_one({"_id":ObjectId(id)})
-    return redirect(url_for('list_students'))
-
+    if request.method == 'POST':
+        db.students.delete_one({"_id":ObjectId(id)})
+        return redirect(url_for('list_students'))
 
 @app.route('/students')
 def list_students():
